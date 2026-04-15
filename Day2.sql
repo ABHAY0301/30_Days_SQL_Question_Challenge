@@ -5,7 +5,7 @@ The output should be sorted in ascending order based on the page IDs.
 */
 
 -- Question 1 link ::  https://datalemur.com/questions/sql-page-with-no-likes
----- My Solution
+---- 1 Solution
 
 SELECT A.page_id
 FROM pages AS A
@@ -14,6 +14,18 @@ ON A.page_id = B.page_id
 WHERE B.page_id ISNULL
 ORDER BY A.page_id
 
+---- 2 Solution
+  
+SELECT A.page_id
+FROM pages A
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM page_likes B
+    WHERE B.page_id = A.page_id
+)
+ORDER BY A.page_id;
+
+--------------------------------------------------------------------------------------------------------------------------
 /*
 
 Question 2: 
